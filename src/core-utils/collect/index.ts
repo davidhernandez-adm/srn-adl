@@ -31,7 +31,7 @@ export const constructInsertRecordRequest = (
         method: 'POST',
         quorum: true,
         tableName: record.table,
-        fields: record.fields,
+        fields: {...record.fields, ...(record?.fields?.card_number ? {card_number: record.fields.card_number.replace(/\s+/g, '')}:{})},
         ...(options?.upsert ? { upsert: upsertColumn } : {}),
       });
       requestBody.push({
